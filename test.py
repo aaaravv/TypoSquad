@@ -121,16 +121,12 @@ def age_to_risk(days):
     
     # These age cutoffs are simple project rules, not official security standards.
     if days is None:
-        return 0.8  # unknown cert = moderately risky
-
+        return 1.0  # unknown cert = extremely risky
     if days < 7:
         return 1.0
-    elif days < 30:
-        return 0.6
-    elif days < 180:
-        return 0.2
-    else:
-        return 0.0
+    return 0
+    
+
 
 # -----------------------------
 # DOMAIN SIMILARITY
@@ -164,7 +160,7 @@ def analyze(url, use_similarity=True):
     age_risk = age_to_risk(cert_age_days)
 
     similarity_pass = sim["distance"] == 0 if use_similarity else True
-    age_pass = age_risk < 0.6
+    age_pass = age_risk == 0.0
 
     # -----------------------------
     # SCORING
@@ -183,7 +179,7 @@ def analyze(url, use_similarity=True):
         verdict = "SUSPICIOUS"
     elif not similarity_pass:
         verdict = "SUSPICIOUS"
-    elif age_risk >= 0.6:
+    elif not age_pass:
         verdict = "USE CAUTION"
     else:
         verdict = "SAFE"
