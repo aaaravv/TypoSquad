@@ -41,12 +41,12 @@ def extract_domain(url):
     if not hostname:
         raise ValueError("Invalid URL")
     
-    # This is a simple way to get the main domain for our class project.
+    # Normalizes url into a lowercase structure that splits at each .
     parts = hostname.lower().split(".")
     return ".".join(parts[-2:])
 
 # -----------------------------
-# EDIT DISTANCE (Levenshtein)
+# EDIT DISTANCE 
 # -----------------------------
 def edit_distance(a, b):
     """Find how many character changes it takes to turn one domain into another."""
@@ -163,7 +163,7 @@ def analyze(url, use_similarity=True):
     cert_age_days = get_cert_age_days(domain)
     age_risk = age_to_risk(cert_age_days)
 
-    similarity_pass = sim["distance"] <= 2 if use_similarity else True
+    similarity_pass = sim["distance"] == 0 if use_similarity else True
     age_pass = age_risk < 0.6
 
     # -----------------------------
@@ -209,9 +209,11 @@ def analyze(url, use_similarity=True):
     print(f"  Edit Distance: {sim['distance']}")
 
     if similarity_pass:
-        print("  PASS: Domain similarity acceptable.")
+        print("  PASS: No typosquatting detected.")
+    elif sim["distance"] <= 2:
+        print(f"  FAIL: Domain is suspiciously similar to {sim['closest']}.")
     else:
-        print("  FAIL: Domain is not similar to trusted list.")
+        print("  Pass: Domain is not similar to trusted list.")
 
     print("\nCertificate Age:")
     if cert_age_days is None:
