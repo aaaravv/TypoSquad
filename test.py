@@ -1,14 +1,3 @@
-"""
-Simple CLI phishing checker - introductory security project.
-
-This program evaluates a URL using three mechanisms:
-1. A basic TLS certificate check
-2. Domain similarity against a trusted whitelist
-3. A certificate-age heuristic
-
-It also supports a broken-mode demo that disables the similarity mechanism
-to show what happens when the phishing-specific protection is removed.
-"""
 import socket
 import ssl
 import sys
