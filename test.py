@@ -11,6 +11,23 @@ TRUSTED_DOMAINS = [
     "google.com",
     "paypal.com",
     "amazon.com",
+    "microsoft.com",
+    "apple.com",
+    "facebook.com",
+    "netflix.com",
+    "wellsfargo.com",
+    "bankofamerica.com",
+    "chase.com",
+    "linkedin.com",
+    "dropbox.com",
+    "adobe.com",
+    "zoom.us",
+    "slack.com",
+    "github.com",
+    "coinbase.com",
+    "twitter.com",
+    "walmart.com",
+    "instagram.com",
 ]
 
 # -----------------------------
